@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>A Simple Reference Generator</title>
+    <link rel="shortcut icon" href="/Logo.png">
+    <link rel="apple-touch-icon" href="/Logo.png">
+</head>
+<body  onload="output()" >
+<script type="text/javascript">
+    function output()
+        {
+        var NameTest = document.getElementById("Firstname").value
+                var tb2 = NameTest.substring(0, 1);
+
+            outputText = document.getElementById("LN").value + "." + tb2 + " (" + document.getElementById("WY").value + ") " + document.getElementById("TITLE").value + ". Retrieved " + document.getElementById("RM").value + " " + document.getElementById("RD").value + ", " + document.getElementById("RY").value + " from " + document.getElementById("RURL").value + "";
+
+            document.getElementById("output").innerHTML = outputText;
+            setTimeout(output, 500);
+        }
+        
+        
+    function copyoutput()
+        {
+       
+            var copytext = document.getElementById("output");
+            copyoutput2(copytext.innerHTML);
+            
+            
+        }
+        
+        function copyoutput2(str) {
+
+        /*  TAKEN FROM (and modified slightly): https://hackernoon.com/copying-text-to-clipboard-with-javascript-df4d4988697f  */
+        /*  -----------------------------------------------------------------------------------------------------------------  */
+    
+  const el = document.createElement('textarea');  
+  el.value = str;                                 
+  el.setAttribute('readonly', '');                
+  el.style.position = 'absolute';                 
+  el.style.left = '-9999px';                      
+  document.body.appendChild(el);                  
+  const selected =            
+    document.getSelection().rangeCount > 0        
+      ? document.getSelection().getRangeAt(0)     
+      : false;                                    
+  el.select();                                    
+  document.execCommand('copy');                   
+  document.body.removeChild(el);                  
+  if (selected) {                                 
+    document.getSelection().removeAllRanges();    
+    document.getSelection().addRange(selected);   
+  }
+  				alert("Copied the text: " + str);
+        /*  -----------------------------------------------------------------------------------------------------------------  */
+        
+        
+        
+        }
+        
+
+
+</script>
+<span><a href="/">Homepage</a></span>
+    <h1>Simple Reference Generator</h1>
+    <h3>WARNING: This generator currently only works for online sources with one author. <br>
+    Check Page 23 in the school diary if your source is not online and/or it has more than one author (or if there is not an author).</h3>
+    <hr>
+
+    <table>
+            <tr>
+            <td>
+            <p>Enter it's title:</p>
+                <input type="text" id="TITLE">
+                                <br>
+            </td>
+        </tr>
+            <tr>
+            <td>
+            <p>Enter the author's first name:</p>
+                <input type="text" id="Firstname">
+                                <br>
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+            <p>Enter the author's last name:</p>
+                <input type="text" id="LN">
+                <br>
+            </td>
+        </tr>
+        <tr>
+            <td>
+            <p>Enter the year it was written on:</p>
+                <input type="text" id="WY">
+                                <br>
+            </td>
+        </tr>
+        <tr>
+            <td>
+            <p>Enter the year you retrieved it on:</p>
+                <input type="text" id="RY">
+                                <br>
+            </td>
+        </tr>
+        <tr>
+            <td>
+            <p>Enter the month you retrieved it on:</p>
+                <input type="text" id="RM">
+                                <br>
+            </td>
+        </tr>
+        <tr>
+            <td>
+            <p>Enter the day you retrieved it on:</p>
+                <input type="text" id="RD">
+                                <br>
+            </td>
+        </tr>
+        <tr>
+            <td>
+            <p>Enter the URL you got it from:</p>
+                <input type="text" id="RURL">
+                                <br>
+            </td>
+            </tr>
+        <tr>
+            <td>
+            <br>
+            <h2>Reference:</h2>
+            <button onclick="copyoutput()">Copy to clipboard</button>
+            <br>
+            <br>
+                <div id="output">
+            </td>
+        </tr>
+        <tr>
+            <td>
+            </td>
+        </tr>
+    </table>
+</body>

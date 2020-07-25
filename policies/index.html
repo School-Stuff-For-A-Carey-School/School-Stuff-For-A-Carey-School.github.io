@@ -1,0 +1,184 @@
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html;">
+		<title>Policy Viewer</title>
+		<link rel="shortcut icon" href="/Logo.png">
+		<link rel="apple-touch-icon" href="/Logo.png">
+		<link href="https://fonts.googleapis.com/css2?family=Maven+Pro&display=swap" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css2?family=Public+Sans&display=swap" rel="stylesheet">
+		<script>
+			function UpdateJSON() {
+				var SelectedType = document.getElementById('TypeSelect').value;
+				if (SelectedType == "None") {
+					document.getElementById('JSONDATA').innerHTML = "<br>"
+				} else {
+					var json = '<br>'
+					document.getElementById('JSONDATA').innerHTML = '<p>Loading...</p>'
+					fetch('./JSON/' + SelectedType + '/policies.json?' + new Date().getTime())
+						.then(response => response.json())
+						.then(data => UpdateJSON2(data))
+						.catch(function() { document.getElementById('JSONDATA').innerHTML = '<p>Error: <span style="color:red;">No data!</span></p>' });
+						
+				} 
+			}
+			
+			function UpdateJSON2(data) {
+				document.getElementById('JSONDATA').innerHTML = '<p>Parsing data...</p>'
+				console.log(data)
+				var finalHTML = '<p>Error parsing data!</p>'
+				try {
+					var chromePolicies = data.chromePolicies
+					if (data.data.status) {
+						var vstat = "<span style=" + '"' + "color:green;" + '"' + ">verified</span>"
+					} else {
+						var vstat = "<span style=" + '"' + "color:red;" + '"' + ">unverified</span>"
+					}
+					
+					finalHTML = "<p style=" + '"' + "font-family: 'Public Sans', sans-serif;" + '"' + ">Status: " + vstat + ".</p> <p style=" + '"' + "font-family: 'Public Sans', sans-serif;" + '"' + ">Date: " + data.data.date + "</p><table><tr><th style=" + '"' + "font-family: 'Public Sans', sans-serif; font-weight: bold !important;" + '"' + ">Policy</th><th style=" + '"' + "font-family: 'Public Sans', sans-serif; font-weight: bold !important;" + '"' + ">Value</th><th style=" + '"' + "font-family: 'Public Sans', sans-serif; font-weight: bold !important;" + '"' + ">Additional information</th></tr>"
+					for (chromeP in chromePolicies) {
+						finalHTML += '<tr><th><a target="_blank" href="https://cloud.google.com/docs/chrome-enterprise/policies/?policy=' + chromeP + '">' + chromeP + '</a></th><th>' + JSON.stringify(chromePolicies[chromeP].value) + '</th>'
+						var cnotes = '';
+						if (true) { //Indent with if (true) to make it easier to read.
+							if (chromeP == "AllowDeletingBrowserHistory") {
+								if (chromePolicies[chromeP].value == false) {
+									cnotes = 'Browser history can not be deleted.'
+								} else {
+									cnotes = 'Browser history can be deleted.'
+								}
+							} else if (chromeP == "CloudReportingEnabled") {
+								if (chromePolicies[chromeP].value == false) {
+									cnotes = 'Cloud reporting is disabled'
+								} else {
+									cnotes = "<a target='_blank' href='https://support.google.com/chrome/a/answer/9301421?hl=en&ref_topic=9301744'>Scroll down to the \"<code style='background-color: lightgrey;'>What gets uploaded from users' devices</code>\" section to see what is sent.</a>"
+								}	
+							} else if (chromeP == "DeveloperToolsAvailability") {
+								if (chromePolicies[chromeP].value == 0) {
+									cnotes = 'Developer Tools (inspect) is disabled on extensions installed by the ExtensionInstallForcelist policy.'
+								} else if (chromePolicies[chromeP].value == 1) {
+									cnotes = 'Developer Tools (inspect) is enabled everywhere.'
+								} else if (chromePolicies[chromeP].value == 2) {
+									cnotes = 'Developer Tools (inspect) is disabled everywhere.'
+								}
+							} else if (chromeP == "DisableSafeBrowsingProceedAnyway") {
+								if (chromePolicies[chromeP].value == true) {
+									cnotes = 'The proceed anyway button on the Safe Browsing warning page is disabled.'
+								} else {
+									cnotes = 'The proceed anyway button on the Safe Browsing warning page is enabled.'
+								}
+							} else if (chromeP == "ExtensionInstallBlacklist") {
+								if (chromePolicies[chromeP].value == '*') {
+									cnotes = 'All extensions (including themes) are disabled unless they are listed in the whitelist.'
+								} else {
+									cnotes = 'These extensions are disabled.<br>'
+									for (values in chromePolicies[chromeP].value) {
+										cnotes += '<a target="_blank" href="https://chrome.google.com/webstore/detail/' + chromePolicies[chromeP].value[values].toString().split(';')[0] + '">' + chromePolicies[chromeP].value[values].toString().split(';')[0] + '</a>  '
+									}
+								}
+							} else if (chromeP == "ExtensionInstallForcelist") {
+								cnotes = 'These extensions (including themes) are installed silently and cannot be uninstalled or disabled. All permissions requested by these extensions are granted.<br>'
+								for (values in chromePolicies[chromeP].value) {
+									cnotes += '<a target="_blank" href="https://chrome.google.com/webstore/detail/' + chromePolicies[chromeP].value[values].toString().split(';')[0] + '">' + chromePolicies[chromeP].value[values].toString().split(';')[0] + '</a>  '
+								}
+								
+							} else if (chromeP == "ExtensionInstallWhitelist") {
+								for (values in chromePolicies[chromeP].value) {
+									cnotes += '<a target="_blank" href="https://chrome.google.com/webstore/detail/' + chromePolicies[chromeP].value[values].toString().split(';')[0] + '">' + chromePolicies[chromeP].value[values].toString().split(';')[0] + '</a>  '
+								}
+							} else if (chromeP == "IncognitoModeAvailability") {
+								if (chromePolicies[chromeP].value == 0) {
+									cnotes = 'Incognito mode is available.'
+								} else if (chromePolicies[chromeP].value == 1) {
+									cnotes = 'Incognito mode is disabled.'
+								} else if  (chromePolicies[chromeP].value == 2) {
+									cnotes = 'Incognito mode is forced on.'
+								}
+							} else if (chromeP == "MaxInvalidationFetchDelay") {
+								cnotes = 'Specifies the maximum delay in milliseconds between receiving a policy invalidation and fetching the new policy from the device management service.'
+							} else if (chromeP == "RestoreOnStartup") {
+								if (chromePolicies[chromeP].value == 5) {
+									cnotes = 'The new tab page is the startup page.'
+								} else if (chromePolicies[chromeP].value == 1) {
+									cnotes = 'Any previously open pages are reopened when chrome is launched.'
+								} else if  (chromePolicies[chromeP].value == 4) {
+									cnotes = "Opens the URLs listed on <code style='background-color: lightgray;'>RestoreOnStartupURLs</code> when chrome is launched."
+								}
+							} else if (chromeP == "RestoreOnStartupURLs") {
+								for (values in chromePolicies[chromeP].value) {
+									cnotes += '<a target="_blank" href="' + chromePolicies[chromeP].value[values].toString() + '">' + chromePolicies[chromeP].value[values].toString() + '</a>  '
+								}
+							} else if (chromeP == "SafeBrowsingEnabled") {
+								if (chromePolicies[chromeP].value == true) {
+									cnotes = 'Safe Browsing is always active.'
+								} else if (chromePolicies[chromeP].value == false) {
+									cnotes = 'Safe Browsing is never active.'
+								}
+							} else if (chromeP == "TaskManagerEndProcessEnabled") {
+								if (chromePolicies[chromeP].value == false) {
+									cnotes = "The 'End process' button is disabled in chrome's Task Manager."
+								} else if (chromePolicies[chromeP].value == true) {
+									cnotes = "The 'End process' button is enabled in chrome's Task Manager."
+								}
+							}
+						}
+						if (cnotes != '') {
+							finalHTML += '<th>' + cnotes + '</th></tr>'
+						} else {
+							finalHTML += '</tr>'
+						}
+					}
+				} catch(e) {
+					finalHTML = '<p>Error parsing data: <span style="color:red;">' + e + '</span></p>'
+				}
+				document.getElementById('JSONDATA').innerHTML = finalHTML
+			}
+		</script>
+		<style>
+			table {
+				font-family: arial, sans-serif;
+				border-collapse: collapse;
+				width: 100%;
+				table-layout:fixed;
+			}
+			
+			td, th {
+				border: 1px solid #dddddd;
+				text-align: left;
+				padding: 8px;
+				font-weight: normal;
+				overflow: scroll;
+			}
+			
+			tr:nth-child(even) {
+				background-color: #dddddd;
+			}
+			</style>
+	</head>
+	<body onload="UpdateJSON()">
+		<div style="float: left; position: absolute;"><span><a href="/">Homepage</a></span></div>
+		<h1 style="text-align: center; font-family: 'Maven Pro', sans-serif; padding-top: 1%;">School Policy Viewer</h1>
+		<hr>
+		<h2 style="text-align: center; font-family: 'Maven Pro', sans-serif;">About</h2>
+		<p style="font-family: 'Public Sans', sans-serif;">Although I recommend using <a href="chrome://policy">chrome://policy</a> instead because it shows what is restricted on your browser right now, this page is occasionally updated. <br>However, unlike <a href="chrome://policy">chrome://policy</a> this page displays the policies used on the school's desktop computers, chrome on a personal laptops and the school's chromebooks.<br>I am able to frequently update the chrome policy for personal laptops, however I am only able to obtain the policies for the school's desktop computers if I have access to them. I do not own a chromebook and will only be able to update their policies if I receive them from someone else.</p>
+		<hr>
+		<h2 style="text-align: center; font-family: 'Maven Pro', sans-serif;">View Policies</h2>
+		<p style="font-family: 'Public Sans', sans-serif;">Type: 
+			<select name="TypeSelect" id="TypeSelect" onchange="UpdateJSON()">
+    			<option value="None">None</option>
+				<optgroup label="Mac (Personal)">
+    				<option value="MacPLatest">Latest</option>
+    				<option value="MacPLatestV">Latest (verified)</option>
+				<optgroup label="Mac (School)">
+    				<option value="MacSLatest">Latest</option>
+    				<option value="MacSLatestV">Latest (verified)</option>
+				<optgroup label="Chromebook">
+    				<option value="CBookLatest">Latest</option>
+    				<option value="CBookLatestV">Latest (verified)</option>
+    		</select>
+		</p>
+		<div id="JSONDATA">
+			<code style='color: white;'>Loading...</code>
+		</div>
+		<hr>
+		<h2 style="text-align: center; font-family: 'Maven Pro', sans-serif;">Submit Updated Policies</h2>
+		<p style="font-family: 'Public Sans', sans-serif;">You can submit updated policies <a target="_blank" href="https://docs.google.com/forms/d/e/1FAIpQLSfkvUySA6UhWSeGIqFPDQ2QyN1wZiaQ72J-p3dvYTYdZCIYoA/viewform?usp=sf_link">here</a>. </body>
+</html>

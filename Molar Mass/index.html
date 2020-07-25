@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Molar mass calculator</title>
+    <link rel="shortcut icon" href="/Logo.png">
+    <link rel="apple-touch-icon" href="/Logo.png">
+</head>
+<body  onload="output()" >
+<script type="text/javascript">
+    function output() {
+        var NameTest = document.getElementById("m").value
+                var m = parseInt(NameTest);
+
+        var NameTest = document.getElementById("m2").value
+                var M = parseInt(NameTest);
+                
+                
+            var outputTextold = m/M
+			
+			outputText = outputTextold + " Mols"
+			
+            document.getElementById("output").innerHTML = outputText;
+            setTimeout(output, 500);
+        }
+
+
+
+
+/*
+
+function guess() {
+
+
+        var NameTest = document.getElementById("m2").value
+                var M = parseInt(NameTest);
+                
+                
+            var outputTextold = guess2(M)
+			
+			outputText = "Estimated Substance: " outputTextold + ""
+			
+            document.getElementById("guess").innerHTML = outputText;
+            setTimeout(output, 500);
+        }
+        
+        
+        
+        
+        function guess2(idk) {
+
+
+                var mass = parseInt(idk);
+                var guess2 = 
+                
+                 
+        if ( mass == 1.008 ) 
+        
+        
+        
+            
+            return guess2
+        }
+
+
+*/
+
+
+</script>
+
+
+<span><a href="/">Homepage</a></span>
+    <h1>Molar mass calculator</h1>
+    <h3>A poorly made molar mass calculator. <br>
+    This might not work</h3>
+    <hr>
+
+    <table>
+            <tr>
+            <td>
+            <p>Mass of the substance (g):</p>
+              <p>  <input type="text" id="m">g</p>
+                                <br>
+            </td>
+        </tr>
+            <tr>
+            <td>
+            <p>Molar mass of the substance/Atomic Mass number of the substance:</p>
+              <p>  <input type="text" id="m2"></p>
+                                <br>
+                <div id="guess">
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+            <br>
+            <h2>Mols:</h2>
+                <div id="output">
+            </td>
+        </tr>
+        <tr>
+            <td>
+            </td>
+        </tr>
+    </table>
+</body>
