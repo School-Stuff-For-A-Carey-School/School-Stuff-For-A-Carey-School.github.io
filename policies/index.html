@@ -14,7 +14,7 @@
 				} else {
 					var json = '<br>'
 					document.getElementById('JSONDATA').innerHTML = '<p>Loading...</p>'
-					fetch('./JSON/' + SelectedType + '/policies.json?' + new Date().getTime())
+					fetch('https://yhsyoa89jt.bitbucket.io/db/SSFACS_JSON/' + SelectedType + '/policies.json?' + new Date().getTime())
 						.then(response => response.json())
 						.then(data => UpdateJSON2(data))
 						.catch(function() { document.getElementById('JSONDATA').innerHTML = '<p>Error: <span style="color:red;">No data!</span></p>' });
