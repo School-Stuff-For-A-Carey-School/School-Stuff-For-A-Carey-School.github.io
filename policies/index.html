@@ -81,6 +81,7 @@
 								}
 								
 							} else if (chromeP == "ExtensionInstallWhitelist") {
+								cnotes = 'These extensions (including themes) are allowed to be installed and are ignored by the blacklist.<br>'
 								for (values in chromePolicies[chromeP].value) {
 									cnotes += '<a target="_blank" href="https://chrome.google.com/webstore/detail/' + chromePolicies[chromeP].value[values].toString().split(';')[0] + '">' + chromePolicies[chromeP].value[values].toString().split(';')[0] + '</a>  '
 								}
