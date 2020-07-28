@@ -1,7 +1,7 @@
 {
    "data": {
       "status": true,
-      "date": "27/7/2020 at 09"
+      "date": "24/7/2020"
    },
    "chromePolicies": {
       "AllowDeletingBrowserHistory": {
@@ -35,17 +35,10 @@
          "value": [ "*" ]
       },
       "ExtensionInstallForcelist": {
-         "conflicts": [ {
-            "level": "mandatory",
-            "scope": "user",
-            "source": "cloud",
-            "value": [ "hfhhnacclhffhdffklopdkcgdhifgngh;https://clients2.google.com/service/update2/crx", "lfhlekccjamfkfmjgnpbdjpecanfbjkl;https://clients2.google.com/service/update2/crx" ]
-         } ],
          "level": "mandatory",
-         "scope": "machine",
-         "source": "platform",
-         "value": [ "honjcnefekfnompampcpmcdadibmjhlk;https://clients2.google.com/service/update2/crx" ],
-         "warning": "More than one source with conflicting values is present for this policy!"
+         "scope": "user",
+         "source": "cloud",
+         "value": [ "hfhhnacclhffhdffklopdkcgdhifgngh;https://clients2.google.com/service/update2/crx", "lfhlekccjamfkfmjgnpbdjpecanfbjkl;https://clients2.google.com/service/update2/crx" ]
       },
       "ExtensionInstallWhitelist": {
          "level": "mandatory",
