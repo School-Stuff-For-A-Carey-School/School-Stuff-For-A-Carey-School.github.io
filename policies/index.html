@@ -7,7 +7,11 @@
 		<link href="https://fonts.googleapis.com/css2?family=Maven+Pro&display=swap" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/css2?family=Public+Sans&display=swap" rel="stylesheet">
 		<script>
+		
+		var urls = []
+		
 			function UpdateJSON() {
+				urls = []
 				var SelectedType = document.getElementById('TypeSelect').value;
 				if (SelectedType == "None") {
 					document.getElementById('JSONDATA').innerHTML = "<br>"
@@ -33,7 +37,6 @@
 					} else {
 						var vstat = "<span style=" + '"' + "color:red;" + '"' + ">unverified</span>"
 					}
-					
 					finalHTML = "<p style=" + '"' + "font-family: 'Public Sans', sans-serif;" + '"' + ">Status: " + vstat + ".</p> <p style=" + '"' + "font-family: 'Public Sans', sans-serif;" + '"' + ">Date: " + data.data.date + "</p><table><tr><th style=" + '"' + "font-family: 'Public Sans', sans-serif; font-weight: bold !important;" + '"' + ">Policy</th><th style=" + '"' + "font-family: 'Public Sans', sans-serif; font-weight: bold !important;" + '"' + ">Value</th><th style=" + '"' + "font-family: 'Public Sans', sans-serif; font-weight: bold !important;" + '"' + ">Additional information</th></tr>"
 					for (chromeP in chromePolicies) {
 						finalHTML += '<tr><th><a target="_blank" href="https://cloud.google.com/docs/chrome-enterprise/policies/?policy=' + chromeP + '">' + chromeP + '</a></th><th>' + JSON.stringify(chromePolicies[chromeP].value) + '</th>'
@@ -69,21 +72,24 @@
 								if (chromePolicies[chromeP].value == '*') {
 									cnotes = 'All extensions (including themes) are disabled unless they are listed in the whitelist.'
 								} else {
-									cnotes = 'These extensions are disabled.<br>'
+									cnotes = 'These extensions are disabled.'
 									for (values in chromePolicies[chromeP].value) {
-										cnotes += '<a target="_blank" href="https://chrome.google.com/webstore/detail/' + chromePolicies[chromeP].value[values].toString().split(';')[0] + '">' + chromePolicies[chromeP].value[values].toString().split(';')[0] + '</a>  '
+										cnotes += '<br><a target="_blank" id="' + chromePolicies[chromeP].value[values].toString().split(';')[0] + '" href="https://chrome.google.com/webstore/detail/' + chromePolicies[chromeP].value[values].toString().split(';')[0] + '">' + chromePolicies[chromeP].value[values].toString().split(';')[0] + '</a>  '
+										urls.push(chromePolicies[chromeP].value[values].toString().split(';')[0])
 									}
 								}
 							} else if (chromeP == "ExtensionInstallForcelist") {
-								cnotes = 'These extensions (including themes) are installed silently and cannot be uninstalled or disabled. All permissions requested by these extensions are granted.<br>'
+								cnotes = 'These extensions (including themes) are installed silently and cannot be uninstalled or disabled. All permissions requested by these extensions are granted.'
 								for (values in chromePolicies[chromeP].value) {
-									cnotes += '<a target="_blank" href="https://chrome.google.com/webstore/detail/' + chromePolicies[chromeP].value[values].toString().split(';')[0] + '">' + chromePolicies[chromeP].value[values].toString().split(';')[0] + '</a>  '
+									cnotes += '<br><a target="_blank" id="' + chromePolicies[chromeP].value[values].toString().split(';')[0] + '" href="https://chrome.google.com/webstore/detail/' + chromePolicies[chromeP].value[values].toString().split(';')[0] + '">' + chromePolicies[chromeP].value[values].toString().split(';')[0] + '</a>  '
+										urls.push(chromePolicies[chromeP].value[values].toString().split(';')[0])
 								}
 								
 							} else if (chromeP == "ExtensionInstallWhitelist") {
-								cnotes = 'These extensions (including themes) are allowed to be installed and are ignored by the blacklist.<br>'
+								cnotes = 'These extensions (including themes) are allowed to be installed and are ignored by the blacklist.'
 								for (values in chromePolicies[chromeP].value) {
-									cnotes += '<a target="_blank" href="https://chrome.google.com/webstore/detail/' + chromePolicies[chromeP].value[values].toString().split(';')[0] + '">' + chromePolicies[chromeP].value[values].toString().split(';')[0] + '</a>  '
+									cnotes += '<br><a target="_blank" id="' + chromePolicies[chromeP].value[values].toString().split(';')[0] + '" href="https://chrome.google.com/webstore/detail/' + chromePolicies[chromeP].value[values].toString().split(';')[0] + '">' + chromePolicies[chromeP].value[values].toString().split(';')[0] + '</a>  '
+										urls.push(chromePolicies[chromeP].value[values].toString().split(';')[0])
 								}
 							} else if (chromeP == "IncognitoModeAvailability") {
 								if (chromePolicies[chromeP].value == 0) {
@@ -131,6 +137,133 @@
 					finalHTML = '<p>Error parsing data: <span style="color:red;">' + e + '</span></p>'
 				}
 				document.getElementById('JSONDATA').innerHTML = finalHTML
+				
+				try {
+					for (id in urls) {
+						var currentid = urls[id]
+						if (currentid == "joodangkbfjnajiiifokapkpmhfnpleo") {
+							document.getElementById(currentid).text = "Calculator"
+							document.getElementById(currentid).id = ""
+						} else if (currentid == "ldipcbpaocekfooobnbcddclnhejkcpn") {
+							document.getElementById(currentid).text = "Google Scholar Button"
+							document.getElementById(currentid).id = ""
+						} else if (currentid == "mfhehppjhmmnlfbbopchdfldgimhfhfk") {
+							document.getElementById(currentid).text = "Google Classroom"
+							document.getElementById(currentid).id = ""
+						} else if (currentid == "mkaakpdehdafacodkgkpghoibnmamcme") {
+							document.getElementById(currentid).text = "Google Drawings"
+							document.getElementById(currentid).id = ""
+						} else if (currentid == "bhloflhklmhfpedakmangadcdofhnnoh") {
+							document.getElementById(currentid).text = "Earth View from Google Earth"
+							document.getElementById(currentid).id = ""
+						} else if (currentid == "okgjbfikepgflmlelgfgecmgjnmnmnnb") {
+							document.getElementById(currentid).text = "WeVideo"
+							document.getElementById(currentid).id = ""
+						} else if (currentid == "nbfahmffcopanponfpkefngbijhbnffa") {
+							document.getElementById(currentid).text = "DroneBlocks"
+							document.getElementById(currentid).id = ""
+						} else if (currentid == "mlikepnkghhlnkgeejmlkfeheihlehne") {
+							document.getElementById(currentid).text = "Google Maps Platform API Checker"
+							document.getElementById(currentid).id = ""
+						} else if (currentid == "olpophplkbncakoomkhnednoigcpekgn") {
+							document.getElementById(currentid).text = "VEXcode"
+							document.getElementById(currentid).id = ""
+						} else if (currentid == "mgijmajocgfcbeboacabfgobmjgjcoja") {
+							document.getElementById(currentid).text = "Google Dictionary"
+							document.getElementById(currentid).id = ""
+						} else if (currentid == "mihcahmgecmbnbcchbopgniflfhgnkff") {
+							document.getElementById(currentid).text = "Google Mail Checker"
+							document.getElementById(currentid).id = ""
+						} else if (currentid == "lpcaedmchfhocbbapmcbpinfpgnhiddi") {
+							document.getElementById(currentid).text = "Google Keep Chrome Extension"
+							document.getElementById(currentid).id = ""
+						} else if (currentid == "kohfgcgbkjodfcfkcackpagifgbcmimk") {
+							document.getElementById(currentid).text = "Natural Reader"
+							document.getElementById(currentid).id = ""
+						} else if (currentid == "kbfnbcaeplbcioakkpcpgfkobkghlhen") {
+							document.getElementById(currentid).text = "Grammarly"
+							document.getElementById(currentid).id = ""
+						} else if (currentid == "jhknlonaankphkkbnmjdlpehkinifeeg") {
+							document.getElementById(currentid).text = "Google Forms"
+							document.getElementById(currentid).id = ""
+						} else if (currentid == "ifeifkfohlobcbhmlfkenopaimbmnahb") {
+							document.getElementById(currentid).text = "LanSchool Student"
+							document.getElementById(currentid).id = ""
+						} else if (currentid == "icmaknaampgiegkcjlimdiidlhopknpk") {
+							document.getElementById(currentid).text = "Pixlr Editor"
+							document.getElementById(currentid).id = ""
+						} else if (currentid == "honjcnefekfnompampcpmcdadibmjhlk") {
+							document.getElementById(currentid).text = "LanSchool Web Helper"
+							document.getElementById(currentid).id = ""
+						} else if (currentid == "hnfeekfpnjbdmelcapngdgkjnhgijjkh") {
+							document.getElementById(currentid).text = "Music Player for Google Drive"
+							document.getElementById(currentid).id = ""
+						} else if (currentid == "hmjkmjkepdijhoojdojkdfohbdgmmhki") {
+							document.getElementById(currentid).text = "Google Keep - Notes and Lists"
+							document.getElementById(currentid).id = ""
+						} else if (currentid == "gmandedkgonhldbnjpikffdnneenijnd") {
+							document.getElementById(currentid).text = "Google Sites"
+							document.getElementById(currentid).id = ""
+						} else if (currentid == "hcglmfcclpfgljeaiahehebeoaiicbko") {
+							document.getElementById(currentid).text = "Google Photos"
+							document.getElementById(currentid).id = ""
+						} else if (currentid == "gcalenpjmijncebpfijmoaglllgpjagf") {
+							document.getElementById(currentid).text = "Tampermonkey BETA"
+							document.getElementById(currentid).id = ""
+						} else if (currentid == "gbkeegbaiigmenfmjfclcdgdpimamgkj") {
+							document.getElementById(currentid).text = "Office Editing for Docs, Sheets & Slides"
+							document.getElementById(currentid).id = ""
+						} else if (currentid == "ddaloccgjfibfpkalenodgehlhkgoahe") {
+							document.getElementById(currentid).text = "Dragon Web Extension"
+							document.getElementById(currentid).id = ""
+						} else if (currentid == "cmedhionkhpnakcndndgjdbohmhepckk") {
+							document.getElementById(currentid).text = "Adblock for Youtube"
+							document.getElementById(currentid).id = ""
+						} else if (currentid == "cfhdojbkjhnklbpkdaibdccddilifddb") {
+							document.getElementById(currentid).text = "Adblock Plus"
+							document.getElementById(currentid).id = ""
+						} else if (currentid == "aapbdbdomjkkjkaonfhkkikfgjllcleb") {
+							document.getElementById(currentid).text = "Google Translate"
+							document.getElementById(currentid).id = ""
+						} else if (currentid == "lfhlekccjamfkfmjgnpbdjpecanfbjkl") {
+							document.getElementById(currentid).text = "SketchUp for Schools"
+							document.getElementById(currentid).id = ""
+						} else if (currentid == "akimgimeeoiognljlfchpbkpfbmeapkh") {
+							document.getElementById(currentid).text = "Google Arts & Culture"
+							document.getElementById(currentid).id = ""
+						} else if (currentid == "oikgofeboedgfkaacpfepbfmgdalabej") {
+							document.getElementById(currentid).text = "Nod - Reactions for Google Meet"
+							document.getElementById(currentid).id = ""
+						} else if (currentid == "adokjfanaflbkibffcbhihgihpgijcei") {
+							document.getElementById(currentid).text = "Share to Classroom"
+							document.getElementById(currentid).id = ""
+						} else if (currentid == "kdfinbdncekfhibpbnkjedmdofkjghjj") {
+							document.getElementById(currentid).text = "OpenShot online"
+							document.getElementById(currentid).id = ""
+						} else if (currentid == "iheobagjkfklnlikgihanlhcddjoihkg") {
+							document.getElementById(currentid).text = "Securly for Chromebooks"
+							document.getElementById(currentid).id = ""
+						} else if (currentid == "hfhhnacclhffhdffklopdkcgdhifgngh") {
+							document.getElementById(currentid).text = "Camera"
+							document.getElementById(currentid).id = ""
+						} else if (currentid == "bjkegbgpfgpikgkfidhcihhiflbjgfic") {
+							document.getElementById(currentid).text = "--Removed Extension--"
+							document.getElementById(currentid).id = ""
+						} else if (currentid == "joodangkbfjnajiiifokapkpmhfnpleo") {
+							document.getElementById(currentid).text = "Calculator"
+							document.getElementById(currentid).id = ""
+						} else if (currentid == "joodangkbfjnajiiifokapkpmhfnpleo") {
+							document.getElementById(currentid).text = "Calculator"
+							document.getElementById(currentid).id = ""
+						} else if (currentid == "joodangkbfjnajiiifokapkpmhfnpleo") {
+							document.getElementById(currentid).text = "Calculator"
+							document.getElementById(currentid).id = ""
+						} else if (currentid == "joodangkbfjnajiiifokapkpmhfnpleo") {
+							document.getElementById(currentid).text = "Calculator"
+							document.getElementById(currentid).id = ""
+						}
+					}
+				} catch {}
 			}
 		</script>
 		<style>
@@ -163,18 +296,18 @@
 		<hr>
 		<h2 style="text-align: center; font-family: 'Maven Pro', sans-serif;">View Policies</h2>
 		<p style="font-family: 'Public Sans', sans-serif;">Type: 
-			<select name="TypeSelect" id="TypeSelect" onchange="UpdateJSON()">
-    			<option value="None">None</option>
-				<optgroup label="Mac (Personal)">
-    				<option value="MacPLatest">Latest</option>
-    				<option value="MacPLatestV">Latest (verified)</option>
-				<optgroup label="Mac (School)">
-    				<option value="MacSLatest">Latest</option>
-    				<option value="MacSLatestV">Latest (verified)</option>
-				<optgroup label="Chromebook">
-    				<option value="CBookLatest">Latest</option>
-    				<option value="CBookLatestV">Latest (verified)</option>
-    		</select>
+		<select name="TypeSelect" id="TypeSelect" onchange="UpdateJSON()">
+			<option value="None">None</option>
+			<optgroup label="Mac (Personal)">
+				<option value="MacPLatest">Latest</option>
+				<option value="MacPLatestV">Latest (verified)</option>
+			<optgroup label="Mac (School)">
+				<option value="MacSLatest">Latest</option>
+				<option value="MacSLatestV">Latest (verified)</option>
+			<optgroup label="Chromebook">
+				<option value="CBookLatest">Latest</option>
+				<option value="CBookLatestV">Latest (verified)</option>
+		</select>
 		</p>
 		<div id="JSONDATA">
 			<code style='color: white;'>Loading...</code>
