@@ -1,0 +1,103 @@
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html;">
+		<title>Loading...</title>
+		<link rel="shortcut icon" href="/Logo.png">
+		<link href="https://fonts.googleapis.com/css2?family=Maven+Pro&display=swap" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css2?family=Public+Sans&display=swap" rel="stylesheet">
+		<script>
+		function UpdateTime() {
+			var currentdate = new Date()
+			var currenthour = currentdate.getHours()
+			var currentmins = currentdate.getMinutes()
+			var hourleft = 0
+			var minsleft = 0
+			var mintime = ( currenthour * 60 ) + currentmins
+			var timeleft = 0
+			if (mintime <= getmintime(8, 35)) {
+				timeleft = getmintime(8, 35) - mintime
+			} else if (mintime <= getmintime(8, 40)) {
+				timeleft = getmintime(8, 40) - mintime
+			} else if (mintime <= getmintime(8, 45)) {
+				timeleft = getmintime(8, 45) - mintime
+			} else if (mintime <= getmintime(9, 40)) {
+				timeleft = getmintime(9, 40) - mintime
+			} else if (mintime <= getmintime(9, 45)) {
+				timeleft = getmintime(9, 45) - mintime
+			} else if (mintime <= getmintime(10, 40)) {
+				timeleft = getmintime(10, 40) - mintime
+			} else if (mintime <= getmintime(11, 0)) {
+				timeleft = getmintime(11, 0) - mintime
+			} else if (mintime <= getmintime(11, 55)) {
+				timeleft = getmintime(11, 55) - mintime
+			} else if (mintime <= getmintime(12, 00)) {
+				timeleft = getmintime(12, 00) - mintime
+			} else if (mintime <= getmintime(12, 55)) {
+				timeleft = getmintime(12, 55) - mintime
+			} else if (mintime <= getmintime(13, 30)) {
+				timeleft = getmintime(13, 30) - mintime
+			} else if (mintime <= getmintime(14, 25)) {
+				timeleft = getmintime(14, 25) - mintime
+			} else if (mintime <= getmintime(14, 30)) {
+				timeleft = getmintime(14, 30) - mintime
+			} else if (mintime <= getmintime(15, 25)) {
+				timeleft = getmintime(15, 25) - mintime
+			} else {
+				timeleft = getmintime(8, 35) + getmintime(24, 00) - mintime
+			}
+			var outtime = timeleft + "m"
+			document.title = outtime
+			setcolour(timeleft)
+			setcolour(timeleft)
+			setcolour(timeleft)
+			setcolour(timeleft)
+		}
+		
+		function setcolour(timeleft) {
+			if (timeleft <= 0) {
+				document.querySelector("link[rel*='icon']").href = "https://dummyimage.com/100x100/00c800/000.png&text=+";
+			} else if (timeleft <= 5) {
+				document.querySelector("link[rel*='icon']").href = "https://dummyimage.com/100x100/ff0000/000.png&text=+";
+			} else if (timeleft <= 15) {
+				document.querySelector("link[rel*='icon']").href = "https://dummyimage.com/100x100/ff6f00/000.png&text=+";
+			} else if (timeleft <= 60) {
+				document.querySelector("link[rel*='icon']").href = "https://dummyimage.com/100x100/4286f4/000.png&text=+";
+			} else {
+				document.querySelector("link[rel*='icon']").href = "https://dummyimage.com/100x100/808080/000.png&text=+";
+			}
+		}
+		
+		function getmintime(hour, min) {
+			return ( hour * 60 ) + min
+		}
+		
+		UpdateTime()
+		var loopseconds = 1
+		setInterval(UpdateTime, loopseconds * 1000)
+		</script>
+		<style>
+			table {
+				font-family: arial, sans-serif;
+				border-collapse: collapse;
+				width: 100%;
+				table-layout:fixed;
+			}
+			
+			td, th {
+				border: 1px solid #dddddd;
+				text-align: left;
+				padding: 8px;
+				font-weight: normal;
+				overflow: scroll;
+			}
+			
+			tr:nth-child(even) {
+				background-color: #dddddd;
+			}
+			</style>
+	</head>
+	<body>
+		<div style="float: left; position: absolute;"><span><a href="/">Homepage</a></span></div>
+		<h1 style="text-align: center; font-family: 'Maven Pro', sans-serif; padding-top: 1%;">Time Left</h1>
+		<hr>
+</html>
