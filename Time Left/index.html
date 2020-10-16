@@ -55,7 +55,7 @@
 
 		function setcolour(timeleft) {
 			if (timeleft <= 0) {
-				document.querySelector("link[rel*='icon']").href = "https://dummyimage.com/100x100/00c800/fff.png&text=" + timeleft;
+				document.querySelector("link[rel*='icon']").href = "https://dummyimage.com/100x100/00c800/fff.png&text=%200%20";
 			} else if (timeleft <= 5) {
 				document.querySelector("link[rel*='icon']").href = "https://dummyimage.com/100x100/ff0000/fff.png&text=" + timeleft;
 			} else if (timeleft <= 15) {
@@ -98,6 +98,6 @@
 	</head>
 	<body>
 		<div style="float: left; position: absolute;"><span><a href="/">Homepage</a></span></div>
-		<h1 style="text-align: center; font-family: 'Maven Pro', sans-serif; padding-top: 1%;">Time Left</h1>
+		<h1 style="text-align: center; font-family: 'Maven Pro', sans-serif; padding-top: 1%;"></h1>
 		<hr>
 </html>
