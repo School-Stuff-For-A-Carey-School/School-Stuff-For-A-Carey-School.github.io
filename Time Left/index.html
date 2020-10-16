@@ -52,25 +52,25 @@
 			setcolour(timeleft)
 			setcolour(timeleft)
 		}
-		
+
 		function setcolour(timeleft) {
 			if (timeleft <= 0) {
-				document.querySelector("link[rel*='icon']").href = "https://dummyimage.com/100x100/00c800/000.png&text=+";
+				document.querySelector("link[rel*='icon']").href = "https://dummyimage.com/100x100/00c800/fff.png&text=" + timeleft;
 			} else if (timeleft <= 5) {
-				document.querySelector("link[rel*='icon']").href = "https://dummyimage.com/100x100/ff0000/000.png&text=+";
+				document.querySelector("link[rel*='icon']").href = "https://dummyimage.com/100x100/ff0000/fff.png&text=" + timeleft;
 			} else if (timeleft <= 15) {
-				document.querySelector("link[rel*='icon']").href = "https://dummyimage.com/100x100/ff6f00/000.png&text=+";
+				document.querySelector("link[rel*='icon']").href = "https://dummyimage.com/100x100/ff6f00/fff.png&text=" + timeleft;
 			} else if (timeleft <= 60) {
-				document.querySelector("link[rel*='icon']").href = "https://dummyimage.com/100x100/4286f4/000.png&text=+";
+				document.querySelector("link[rel*='icon']").href = "https://dummyimage.com/100x100/4286f4/fff.png&text=" + timeleft;
 			} else {
-				document.querySelector("link[rel*='icon']").href = "https://dummyimage.com/100x100/808080/000.png&text=+";
+				document.querySelector("link[rel*='icon']").href = "https://dummyimage.com/100x100/808080/fff.png&text=" + timeleft;
 			}
 		}
-		
+
 		function getmintime(hour, min) {
 			return ( hour * 60 ) + min
 		}
-		
+
 		UpdateTime()
 		var loopseconds = 1
 		setInterval(UpdateTime, loopseconds * 1000)
@@ -82,7 +82,7 @@
 				width: 100%;
 				table-layout:fixed;
 			}
-			
+
 			td, th {
 				border: 1px solid #dddddd;
 				text-align: left;
@@ -90,7 +90,7 @@
 				font-weight: normal;
 				overflow: scroll;
 			}
-			
+
 			tr:nth-child(even) {
 				background-color: #dddddd;
 			}
