@@ -14,56 +14,105 @@
 			var minsleft = 0
 			var mintime = ( currenthour * 60 ) + currentmins
 			var timeleft = 0
+			var timeleftpercent = 0
+			var timeleftpercentamount = 10
 			if (mintime <= getmintime(8, 35)) {
 				timeleft = getmintime(8, 35) - mintime
+				timeleftpercentamount = 1020
 			} else if (mintime <= getmintime(8, 40)) {
 				timeleft = getmintime(8, 40) - mintime
+				timeleftpercentamount = 5
 			} else if (mintime <= getmintime(8, 45)) {
 				timeleft = getmintime(8, 45) - mintime
+				timeleftpercentamount = 5
 			} else if (mintime <= getmintime(9, 40)) {
 				timeleft = getmintime(9, 40) - mintime
+				timeleftpercentamount = 55
 			} else if (mintime <= getmintime(9, 45)) {
 				timeleft = getmintime(9, 45) - mintime
+				timeleftpercentamount = 5
 			} else if (mintime <= getmintime(10, 40)) {
 				timeleft = getmintime(10, 40) - mintime
+				timeleftpercentamount = 55
 			} else if (mintime <= getmintime(11, 0)) {
 				timeleft = getmintime(11, 0) - mintime
+				timeleftpercentamount = 20
 			} else if (mintime <= getmintime(11, 55)) {
 				timeleft = getmintime(11, 55) - mintime
+				timeleftpercentamount = 55
 			} else if (mintime <= getmintime(12, 00)) {
 				timeleft = getmintime(12, 00) - mintime
+				timeleftpercentamount = 5
 			} else if (mintime <= getmintime(12, 55)) {
 				timeleft = getmintime(12, 55) - mintime
+				timeleftpercentamount = 55
 			} else if (mintime <= getmintime(13, 30)) {
 				timeleft = getmintime(13, 30) - mintime
+				timeleftpercentamount = 35
 			} else if (mintime <= getmintime(14, 25)) {
 				timeleft = getmintime(14, 25) - mintime
+				timeleftpercentamount = 55
 			} else if (mintime <= getmintime(14, 30)) {
 				timeleft = getmintime(14, 30) - mintime
+				timeleftpercentamount = 5
 			} else if (mintime <= getmintime(15, 25)) {
 				timeleft = getmintime(15, 25) - mintime
+				timeleftpercentamount = 55
 			} else {
 				timeleft = getmintime(8, 35) + getmintime(24, 00) - mintime
+				timeleftpercentamount = 1020
 			}
 			var outtime = timeleft + "m"
 			document.title = outtime
-			setcolour(timeleft)
-			setcolour(timeleft)
-			setcolour(timeleft)
-			setcolour(timeleft)
+			timeleftpercent = 100 - ( ( ( timeleft + ( 1 -  ( currentdate.getSeconds() / 60 ) ) )  / timeleftpercentamount) * 100 )
+			setcolour(timeleft, timeleftpercent)
+			setcolour(timeleft, timeleftpercent)
+			setcolour(timeleft, timeleftpercent)
+			setcolour(timeleft, timeleftpercent)
 		}
 
-		function setcolour(timeleft) {
+		function setcolour(timeleft, timeleftpercent) {
+			try {
+				document.getElementById("basicprogressbar").value = timeleftpercent
+			} catch {
+				setTimeout(function(){ document.getElementById("basicprogressbar").value = timeleftpercent }, 0);
+			}
+
 			if (timeleft <= 0) {
 				document.querySelector("link[rel*='icon']").href = "https://dummyimage.com/100x100/00c800/fff.png&text=%200%20";
+					try {
+						document.getElementById("basicprogressbar").style.filter = "hue-rotate(270deg)"
+					} catch {
+						setTimeout(function(){ document.getElementById("basicprogressbar").style.filter = "hue-rotate(270deg)" }, 0);
+					}
 			} else if (timeleft <= 5) {
 				document.querySelector("link[rel*='icon']").href = "https://dummyimage.com/100x100/ff0000/fff.png&text=" + timeleft;
+					try {
+						document.getElementById("basicprogressbar").style.filter = "hue-rotate(144deg) saturate(10000)"
+					} catch {
+						setTimeout(function(){ document.getElementById("basicprogressbar").style.filter = "hue-rotate(144deg) saturate(10000)" }, 0);
+					}
 			} else if (timeleft <= 15) {
 				document.querySelector("link[rel*='icon']").href = "https://dummyimage.com/100x100/ff6f00/fff.png&text=" + timeleft;
+					try {
+						document.getElementById("basicprogressbar").style.filter = "hue-rotate(158deg)"
+					} catch {
+						setTimeout(function(){ document.getElementById("basicprogressbar").style.filter = "hue-rotate(158deg)" }, 0);
+					}
 			} else if (timeleft <= 60) {
 				document.querySelector("link[rel*='icon']").href = "https://dummyimage.com/100x100/4286f4/fff.png&text=" + timeleft;
+					try {
+						document.getElementById("basicprogressbar").style.filter = ""
+					} catch {
+						setTimeout(function(){ document.getElementById("basicprogressbar").style.filter = "" }, 0);
+					}
 			} else {
 				document.querySelector("link[rel*='icon']").href = "https://dummyimage.com/100x100/808080/fff.png&text=" + timeleft;
+					try {
+						document.getElementById("basicprogressbar").style.filter = "grayscale(1)"
+					} catch {
+						setTimeout(function(){ document.getElementById("basicprogressbar").style.filter = "grayscale(1)" }, 0);
+					}
 			}
 		}
 
@@ -100,4 +149,5 @@
 		<div style="float: left; position: absolute;"><span><a href="/">Homepage</a></span></div>
 		<h1 style="text-align: center; font-family: 'Maven Pro', sans-serif; padding-top: 1%;"></h1>
 		<hr>
+		<progress id="basicprogressbar" value="0" max="100" style="width: 100%"></progress>
 </html>
