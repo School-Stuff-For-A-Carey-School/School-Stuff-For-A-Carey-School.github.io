@@ -12,7 +12,7 @@
 	}
 	
 	table.MultiLineTable tbody tr:nth-child(even) {
-		background-color: #1b1b1b !important;
+		background-color: #1f1f1f !important;
 	}
 	
 	select {
