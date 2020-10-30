@@ -1,0 +1,30 @@
+@media (prefers-color-scheme: dark) {
+	* {
+		color: white;
+	}
+	
+	body {
+		background-color: #131313;
+	}
+	
+	a, a * {
+		color: #0094ff;
+	}
+	
+	table.MultiLineTable tbody tr:nth-child(even) {
+		background-color: #1b1b1b !important;
+	}
+	
+	select {
+		background-color: black;
+	}
+	
+	code {
+		background-color: black !important;
+	}
+	
+	input, button {
+		background-color: black;
+		border-color: #313131;
+	}
+}
