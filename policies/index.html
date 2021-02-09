@@ -69,6 +69,8 @@
 									cnotes = 'The proceed anyway button on the Safe Browsing warning page is enabled.'
 								}
 							} else if(chromeP == "ExtensionInstallBlacklist") {
+								cnotes = 'Deprecated, functions exactly the same as ExtensionInstallBlocklist'
+							} else if(chromeP == "ExtensionInstallBlocklist") {
 								if(chromePolicies[chromeP].value == '*') {
 									cnotes = 'All extensions (including themes) are disabled unless they are listed in the whitelist.'
 								} else {
@@ -85,6 +87,8 @@
 									urls.push(chromePolicies[chromeP].value[values].toString().split(';')[0])
 								}
 							} else if(chromeP == "ExtensionInstallWhitelist") {
+								cnotes = 'Deprecated, functions exactly the same as ExtensionInstallAllowlist'
+							} else if(chromeP == "ExtensionInstallAllowlist") {
 								cnotes = 'These extensions (including themes) are allowed to be installed and are ignored by the blacklist.'
 								for(values in chromePolicies[chromeP].value) {
 									cnotes += '<br><a target="_blank" id="' + chromePolicies[chromeP].value[values].toString().split(';')[0] + '" href="https://chrome.google.com/webstore/detail/' + chromePolicies[chromeP].value[values].toString().split(';')[0] + '">' + chromePolicies[chromeP].value[values].toString().split(';')[0] + '</a>  '
