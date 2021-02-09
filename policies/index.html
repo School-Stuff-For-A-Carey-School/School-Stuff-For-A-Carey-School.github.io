@@ -37,7 +37,7 @@
 					} else {
 						var vstat = "<span style=" + '"' + "color:red;" + '"' + ">unverified</span>"
 					}
-					finalHTML = "<p style=" + '"' + "font-family: 'Public Sans', sans-serif;" + '"' + ">Status: " + vstat + ".</p> <p style=" + '"' + "font-family: 'Public Sans', sans-serif;" + '"' + ">Date: " + data.data.date + "</p><table class='MultiLineTable'><tr><th style=" + '"' + "font-family: 'Public Sans', sans-serif; font-weight: bold !important;" + '"' + ">Policy</th><th style=" + '"' + "font-family: 'Public Sans', sans-serif; font-weight: bold !important;" + '"' + ">Value</th><th style=" + '"' + "font-family: 'Public Sans', sans-serif; font-weight: bold !important;" + '"' + ">Additional information</th></tr>"
+					finalHTML = "<p style=" + '"' + "font-family: 'Public Sans', sans-serif;" + '"' + ">Status: " + vstat + ".</p> <p style=" + '"' + "font-family: 'Public Sans', sans-serif;" + '"' + ">Date: " + data.data.date + "<br>Year: " + data.data.year + "</p><table class='MultiLineTable'><tr><th style=" + '"' + "font-family: 'Public Sans', sans-serif; font-weight: bold !important;" + '"' + ">Policy</th><th style=" + '"' + "font-family: 'Public Sans', sans-serif; font-weight: bold !important;" + '"' + ">Value</th><th style=" + '"' + "font-family: 'Public Sans', sans-serif; font-weight: bold !important;" + '"' + ">Additional information</th></tr>"
 					for(chromeP in chromePolicies) {
 						finalHTML += '<tr><th><a target="_blank" href="https://cloud.google.com/docs/chrome-enterprise/policies/?policy=' + chromeP + '">' + chromeP + '</a></th><th>' + JSON.stringify(chromePolicies[chromeP].value) + '</th>'
 						var cnotes = '';
