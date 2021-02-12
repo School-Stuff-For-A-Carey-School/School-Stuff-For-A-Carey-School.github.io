@@ -143,7 +143,7 @@
 				try {
 					for(id in urls) {
 						var currentid = urls[id]
-						document.getElementById(currentid).text = ConvertIdToName(currentid)
+						document.getElementById(currentid).innerHTML = ConvertIdToName(currentid)
 						document.getElementById(currentid).id = ""
 					}
 				} catch {}
