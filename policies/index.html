@@ -68,22 +68,22 @@
 								} else {
 									cnotes = 'The proceed anyway button on the Safe Browsing warning page is enabled.'
 								}
-							} else if(chromeP == "ExtensionInstallBlacklist") {
-								cnotes = 'Deprecated, functions exactly the same as ExtensionInstallBlocklist'
-							} else if(chromeP == "ExtensionInstallBlocklist") {
+							} else if(chromeP == "ExtensionInstallBlocklist" || (chromeP == "ExtensionInstallBlacklist" && data.data.old)) {
 								if(chromePolicies[chromeP].value == '*') {
 									cnotes = 'All extensions (including themes) are disabled unless they are listed in the whitelist.'
 								} else {
 									cnotes = 'These extensions are disabled.'
 									for(values in chromePolicies[chromeP].value) {
-										cnotes += '<br><a target="_blank" id="' + chromePolicies[chromeP].value[values].toString().split(';')[0] + '" href="https://chrome.google.com/webstore/detail/' + chromePolicies[chromeP].value[values].toString().split(';')[0] + '">' + chromePolicies[chromeP].value[values].toString().split(';')[0] + '</a>  '
+										cnotes += '<br><a target="_blank" id="' + chromePolicies[chromeP].value[values].toString().split(';')[0] + '" href="https://chrome.google.com/webstore/detail/' + chromePolicies[chromeP].value[values].toString().split(';')[0] + '" style="line-height: 100%">' + chromePolicies[chromeP].value[values].toString().split(';')[0] + '</a>  '
 										urls.push(chromePolicies[chromeP].value[values].toString().split(';')[0])
 									}
 								}
-							} else if(chromeP == "ExtensionInstallForcelist") {
+							} else if(chromeP == "ExtensionInstallBlacklist") {
+								cnotes = 'Deprecated, functions exactly the same as ExtensionInstallBlocklist'
+							} else if(chromeP == "ExtensionInstallForcelist" || (chromeP == "ExtensionInstallWhitelist" && data.data.old)) {
 								cnotes = 'These extensions (including themes) are installed silently and cannot be uninstalled or disabled. All permissions requested by these extensions are granted.'
 								for(values in chromePolicies[chromeP].value) {
-									cnotes += '<br><a target="_blank" id="' + chromePolicies[chromeP].value[values].toString().split(';')[0] + '" href="https://chrome.google.com/webstore/detail/' + chromePolicies[chromeP].value[values].toString().split(';')[0] + '">' + chromePolicies[chromeP].value[values].toString().split(';')[0] + '</a>  '
+									cnotes += '<br><a target="_blank" id="' + chromePolicies[chromeP].value[values].toString().split(';')[0] + '" href="https://chrome.google.com/webstore/detail/' + chromePolicies[chromeP].value[values].toString().split(';')[0] + '" style="line-height: 100%">' + chromePolicies[chromeP].value[values].toString().split(';')[0] + '</a>  '
 									urls.push(chromePolicies[chromeP].value[values].toString().split(';')[0])
 								}
 							} else if(chromeP == "ExtensionInstallWhitelist") {
