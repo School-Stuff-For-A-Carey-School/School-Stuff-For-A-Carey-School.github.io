@@ -144,7 +144,7 @@
 					for(id in urls) {
 						var currentid = urls[id]
 						document.getElementById(currentid).text = ConvertIdToName(currentid)
-						document.getElementById(currentid).insertAdjacentHTML('beforebegin', '<img src="https://yhsyoa89jt.bitbucket.io/db/SSFACS_JSON/ExtIcons/' + currentid + '.png" onerror="this.onerror=null;this.src=' + "'" + 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7' + "'" + ';" style="height: 12px;"> </img>');
+						document.getElementById(currentid).insertAdjacentHTML('beforebegin', '<img src="https://yhsyoa89jt.bitbucket.io/db/SSFACS_JSON/ExtIcons/' + currentid + '.png" onerror="this.onerror=null;this.src=' + "'" + 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7' + "'" + ';" style="height: 12px; pointer-events: none;"> </img>');
 						document.getElementById(currentid).id = ""
 					}
 				} catch {}
