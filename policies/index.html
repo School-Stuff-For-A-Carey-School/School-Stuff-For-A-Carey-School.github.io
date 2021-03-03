@@ -12,6 +12,17 @@
 		<script>
 			var urls = []
 			
+			function IconFail(element) {
+				if (element.id == "LoadIcon0") {
+					element.id = "LoadIcon1"
+					element.src = "https://yhsyoa89jt.bitbucket.io/db/SSFACS_JSON/ExtIcons/FAIL.png"
+				} else {
+					element.onerror = null
+					element.id = ""
+					element.src = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+				}
+			}
+			
 			function UpdateJSON() {
 				urls = []
 				var SelectedType = document.getElementById('TypeSelect').value;
@@ -144,7 +155,7 @@
 					for(id in urls) {
 						var currentid = urls[id]
 						document.getElementById(currentid).text = ConvertIdToName(currentid)
-						document.getElementById(currentid).insertAdjacentHTML('beforebegin', '<img src="https://yhsyoa89jt.bitbucket.io/db/SSFACS_JSON/ExtIcons/' + currentid + '.png" onerror="this.onerror=null;this.src=' + "'" + 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7' + "'" + ';" style="height: 12px; pointer-events: none;"> </img>');
+						document.getElementById(currentid).insertAdjacentHTML('beforebegin', '<img id="LoadIcon0" src="https://yhsyoa89jt.bitbucket.io/db/SSFACS_JSON/ExtIcons/' + currentid + '.png" onerror="IconFail(this);" style="height: 12px; pointer-events: none;"> </img>');
 						document.getElementById(currentid).id = ""
 					}
 				} catch {}
