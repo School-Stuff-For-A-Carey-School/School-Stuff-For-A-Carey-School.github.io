@@ -50,7 +50,7 @@
 					var TimeColour = ""
 					if (data.data.timestamp[0] != new Date().getFullYear()) {
 						TimeColour = ';color: red'
-					} else if (data.data.timestamp[1] < (new Date().getMonth() - 1)) { {
+					} else if (data.data.timestamp[1] < (new Date().getMonth() - 1)) {
 						TimeColour = ';color: orange'
 					}
 					finalHTML = "<p style=" + '"' + "font-family: 'Public Sans', sans-serif;" + '"' + ">Status: " + vstat + ".</p> <p style=" + '"' + "font-family: 'Public Sans', sans-serif" + TimeColour + ';"' + ">Date: " + data.data.date + "<br>Year: " + data.data.year + "</p><table class='MultiLineTable'><tr><th style=" + '"' + "font-family: 'Public Sans', sans-serif; font-weight: bold !important;" + '"' + ">Policy</th><th style=" + '"' + "font-family: 'Public Sans', sans-serif; font-weight: bold !important;" + '"' + ">Value</th><th style=" + '"' + "font-family: 'Public Sans', sans-serif; font-weight: bold !important;" + '"' + ">Additional information</th></tr>"
