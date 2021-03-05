@@ -114,7 +114,7 @@
 									cnotes = 'Incognito mode is forced on.'
 								}
 							} else if(chromeP == "MaxInvalidationFetchDelay") {
-								cnotes = 'Specifies the maximum delay in milliseconds between receiving a policy invalidation and fetching the new policy from the device management service.'
+								cnotes = 'Specifies the maximum delay in milliseconds between receiving a policy invalidation and fetching the new policy from the device management service.<br>It is set to ' + (chromePolicies[chromeP].value / 1000) + ' seconds.'
 							} else if(chromeP == "RestoreOnStartup") {
 								if(chromePolicies[chromeP].value == 5) {
 									cnotes = 'The new tab page is the startup page.'
@@ -138,6 +138,152 @@
 									cnotes = "The 'End process' button is disabled in chrome's Task Manager."
 								} else if(chromePolicies[chromeP].value == true) {
 									cnotes = "The 'End process' button is enabled in chrome's Task Manager."
+								}
+							} else if(chromeP == "AllowDinosaurEasterEgg") {
+								if(chromePolicies[chromeP].value == false) {
+									cnotes = 'The offline dinosaur game has been disabled.'
+								}
+							} else if(chromeP == "AllowPopupsDuringPageUnload") {
+								cnotes = 'This policy was removed in Chrome 88 and is ignored.'
+							} else if(chromeP == "ArcBackupRestoreServiceEnabled") {
+								if(chromePolicies[chromeP].value == 0) {
+									cnotes = 'Backup and restore is disabled.'
+								} else if(chromePolicies[chromeP].value == 1) {
+									cnotes = 'User decides whether to enable backup and restore.'
+								} else if(chromePolicies[chromeP].value == 2) {
+									cnotes = 'Backup and restore is enabled.'
+								}
+							} else if(chromeP == "ArcCertificatesSyncMode") {
+								if(chromePolicies[chromeP].value == 0) {
+									cnotes = 'Google Chrome OS certificates are unavailable for ARC-apps.'
+								} else if(chromePolicies[chromeP].value == 1) {
+									cnotes = 'All ONC-installed CA certificates with Web TrustBit are available for ARC-apps.'
+								}
+							} else if(chromeP == "ArcEnabled") {
+								if(chromePolicies[chromeP].value == 0) {
+									cnotes = 'ARC is disabled.'
+								} else if(chromePolicies[chromeP].value == 1) {
+									cnotes = 'ARC is enabled.'
+								}
+							} else if(chromeP == "ArcGoogleLocationServicesEnabled") {
+								if(chromePolicies[chromeP].value == 0) {
+									cnotes = 'Google location services are disabled.'
+								} else if(chromePolicies[chromeP].value == 1) {
+									cnotes = 'User decides whether to enable Google location services.'
+								} else if(chromePolicies[chromeP].value == 2) {
+									cnotes = 'Google location services are enabled.'
+								}
+							} else if(chromeP == "ArcPolicy") {
+								cnotes = ''
+								try {
+									var ArcJSON = JSON.parse(chromePolicies[chromeP].value)
+									cnotes = 'There does not appear to be much documentation on each individual value, so I have just listed the JSON below in a more readable format:<br><code style="white-space: pre;">' + JSON.stringify(ArcJSON, '', '	') + '</code>'
+								} catch {}
+							} else if(chromeP == "AttestationEnabledForUser") {
+								if(chromePolicies[chromeP].value == false) {
+									cnotes = 'Prevents the device from remotely verifying it\'s identity.'
+								} else if(chromePolicies[chromeP].value == true) {
+									cnotes = 'Allows the device to remotely verify it\'s identity.'
+								}
+							} else if(chromeP == "CaptivePortalAuthenticationIgnoresProxy") {
+								if(chromePolicies[chromeP].value == false) {
+									cnotes = 'Any captive portal authentication pages are shown in a (regular) new browser tab, using the current proxy settings.'
+								} else if(chromePolicies[chromeP].value == true) {
+									cnotes = 'The device will bypass any proxy for captive portal authentication.'
+								}
+							} else if(chromeP == "CastReceiverEnabled") {
+								cnotes = 'This setting does appear to be documented or mentioned anywhere.'
+							} else if(chromeP == "ChromeOsMultiProfileUserBehavior") {
+								if(chromePolicies[chromeP].value == "unrestricted") {
+									cnotes = 'You can have primary (school accounts?) and secondary accounts logged in to the same device.'
+								} else if(chromePolicies[chromeP].value == "primary-only") {
+									cnotes = 'You can only have primary (school accounts?) accounts logged in to the same decive.'
+								} else if(chromePolicies[chromeP].value == "not-allowed") {
+									cnotes = 'You can not have multiple accounts on the same device.'
+								}
+							} else if(chromeP == "DisableScreenshots") {
+								if(chromePolicies[chromeP].value == true) {
+									cnotes = 'Screenshots can not be taken.'
+								}
+							} else if(chromeP == "EasyUnlockAllowed") {
+								if(chromePolicies[chromeP].value == true) {
+									cnotes = 'Smart Lock is enabled.'
+								}
+							} else if(chromeP == "EcryptfsMigrationStrategy") {
+								cnotes = 'Ignored after version 87.'
+							} else if(chromeP == "EnableSyncConsent") {
+								if(chromePolicies[chromeP].value == false) {
+									cnotes = 'Sync Consent will not be shown to the user during their first sign-in.'
+								}
+							} else if(chromeP == "ExternalStorageDisabled") {
+								if(chromePolicies[chromeP].value == true) {
+									cnotes = 'Prevents the device from accessing any type of external storage media (USB, SD, etc).'
+								}
+							} else if(chromeP == "ExternalStorageReadOnly") {
+								if(chromePolicies[chromeP].value == true) {
+									cnotes = 'Prevents the device from saving any data to any type of external storage media (USB, SD, etc). The user can still read files.'
+								}
+							} else if(chromeP == "ForceGoogleSafeSearch") {
+								if(chromePolicies[chromeP].value == true) {
+									cnotes = 'SafeSearch in Google Search is always active, and it can\'t be disabled.'
+								}
+							} else if(chromeP == "ForceYouTubeRestrict") {
+								if(chromePolicies[chromeP].value == 0) {
+									cnotes = 'Disabled Restricted Mode on YouTube'
+								} else if(chromePolicies[chromeP].value == 1) {
+									cnotes = 'Moderate Restricted Mode on YouTube'
+								} else if(chromePolicies[chromeP].value == 2) {
+									cnotes = 'Strict Restricted Mode on YouTube'
+								}
+							} else if(chromeP == "InstantTetheringAllowed") {
+								if(chromePolicies[chromeP].value == true) {
+									cnotes = 'Allows a Google phone to share its mobile data with the device.'
+								}
+							} else if(chromeP == "LidCloseAction") {
+								if(chromePolicies[chromeP].value == 0) {
+									cnotes = 'Suspend the device when the lid is closed.'
+								} else if(chromePolicies[chromeP].value == 1) {
+									cnotes = 'Log the user out when the lid is closed.'
+								} else if(chromePolicies[chromeP].value == 2) {
+									cnotes = 'Shut down the device when the lid is closed.'
+								} else if(chromePolicies[chromeP].value == 3) {
+									cnotes = 'Do nothing when the lid is closed.'
+								}
+							} else if(chromeP == "ManagedBookmarks") {
+								cnotes = 'These bookmarks are added and can not be removed.'
+							} else if(chromeP == "NTLMShareAuthenticationEnabled") {
+								if(chromePolicies[chromeP].value == true) {
+									cnotes = 'Google Chrome OS will use NTLM for authentication to SMB servers.'
+								} else {
+									cnotes = 'Google Chrome OS will not use NTLM for authentication to SMB servers.'
+								}
+							} else if(chromeP == "NetBiosShareDiscoveryEnabled") {
+								if(chromePolicies[chromeP].value == false) {
+									cnotes = 'Network File Share discovery via NetBIOS is disabled'
+								}
+							} else if(chromeP == "OpenNetworkConfiguration") {
+								cnotes = 'For security reasons the certificates can not be found on this site.'
+							} else if(chromeP == "QuickUnlockModeAllowlist" || (chromeP == "QuickUnlockModeWhitelist" && data.data.old)) {
+								cnotes = 'Configures allowed unlock modes.'
+							} else if(chromeP == "QuickUnlockModeAllowlist" || (chromeP == "QuickUnlockModeWhitelist" && data.data.old)) {
+								cnotes = 'Configures allowed unlock modes.<br>If none are listed, none are enabled.'
+							} else if(chromeP == "ReportArcStatusEnabled") {
+								if(chromePolicies[chromeP].value == true) {
+									cnotes = 'Device reports Android status information.'
+								}
+							} else if(chromeP == "SAMLOfflineSigninTimeLimit") {
+								cnotes = 'Time limit for how long a user can remain logged in while the device is offline in seconds.<br>It is set to ' + (chromePolicies[chromeP].value / 86400) + ' days.'
+							} else if(chromeP == "ShowLogoutButtonInTray") {
+								if(chromePolicies[chromeP].value == true) {
+									cnotes = 'A big red sign-out button in the system tray is visible while the screen isn\'t locked.'
+								}
+							} else if(chromeP == "SmartLockSigninAllowed") {
+								if(chromePolicies[chromeP].value == true) {
+									cnotes = 'You can sign into your account with Smart Lock.'
+								}
+							} else if(chromeP == "SmsMessagesAllowed") {
+								if(chromePolicies[chromeP].value == true) {
+									cnotes = 'Users can sync their text messages.'
 								}
 							}
 						}
