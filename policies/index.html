@@ -177,7 +177,7 @@
 								cnotes = ''
 								try {
 									var ArcJSON = JSON.parse(chromePolicies[chromeP].value)
-									cnotes = 'There does not appear to be much documentation on each individual value, so I have just listed the JSON below in a more readable format:<br><code style="white-space: pre;">' + JSON.stringify(ArcJSON, '', '	') + '</code>'
+									cnotes = 'There does not appear to be much documentation on each individual value, so I have just listed the JSON below in a more readable format:<br><code style="white-space: pre;display: block;">' + JSON.stringify(ArcJSON, '', '	') + '</code>'
 								} catch {}
 							} else if(chromeP == "AttestationEnabledForUser") {
 								if(chromePolicies[chromeP].value == false) {
