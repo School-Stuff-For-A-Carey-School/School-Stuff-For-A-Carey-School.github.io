@@ -197,7 +197,7 @@
 									cnotes = 'The device will bypass any proxy for captive portal authentication.'
 								}
 							} else if(chromeP == "CastReceiverEnabled") {
-								cnotes = 'This setting does appear to be documented or mentioned anywhere.'
+								cnotes = 'This setting does not appear to be documented or mentioned anywhere.'
 							} else if(chromeP == "ChromeOsMultiProfileUserBehavior") {
 								if(chromePolicies[chromeP].value == "unrestricted") {
 									cnotes = 'You can have primary (school accounts?) and secondary accounts logged in to the same device.'
@@ -213,6 +213,8 @@
 							} else if(chromeP == "EasyUnlockAllowed") {
 								if(chromePolicies[chromeP].value == true) {
 									cnotes = 'Smart Lock is enabled.'
+								} else {
+									cnotes = 'Smart Lock is disabled.'
 								}
 							} else if(chromeP == "EcryptfsMigrationStrategy") {
 								cnotes = 'Ignored after version 87.'
@@ -269,7 +271,7 @@
 							} else if(chromeP == "OpenNetworkConfiguration") {
 								cnotes = 'For security reasons the certificates can not be found on this site.'
 							} else if(chromeP == "QuickUnlockModeAllowlist" || (chromeP == "QuickUnlockModeWhitelist" && data.data.old)) {
-								cnotes = 'Configures allowed unlock modes.'
+								cnotes = 'Configures allowed unlock modes.<br>If none are listed, none are enabled.'
 							} else if(chromeP == "QuickUnlockModeAllowlist" || (chromeP == "QuickUnlockModeWhitelist" && data.data.old)) {
 								cnotes = 'Configures allowed unlock modes.<br>If none are listed, none are enabled.'
 							} else if(chromeP == "ReportArcStatusEnabled") {
@@ -289,6 +291,80 @@
 							} else if(chromeP == "SmsMessagesAllowed") {
 								if(chromePolicies[chromeP].value == true) {
 									cnotes = 'Users can sync their text messages.'
+								}
+							} else if(chromeP == "AllowSyncXHRInPageDismissal") {
+								if(chromePolicies[chromeP].value == true) {
+									cnotes = 'Webpages are allowed to send synchronous XHR requests when the tab is closed. (I am guessing that page dismissal = page closed)'
+								}
+							} else if(chromeP == "AssistantOnboardingMode") {
+								cnotes = 'This setting does not appear to be documented or mentioned anywhere.'
+							} else if(chromeP == "ChromeOsLockOnIdleSuspend") {
+								if(chromePolicies[chromeP].value == true) {
+									cnotes = 'The device is locked when the device becomes idle or suspended.'
+								}
+							} else if(chromeP == "DnsOverHttpsMode") {
+								if(chromePolicies[chromeP].value == "off") {
+									cnotes = 'DNS-over-HTTPS is disabled.'
+								} else if(chromePolicies[chromeP].value == "automatic") {
+									cnotes = 'DNS-over-HTTPS is enabled with insecure fallback.'
+								} else if(chromePolicies[chromeP].value == "secure") {
+									cnotes = 'DNS-over-HTTPS is enabled without insecure fallback.'
+								}
+							} else if(chromeP == "EmojiSuggestionEnabled") {
+								if(chromePolicies[chromeP].value == true) {
+									cnotes = 'Emojis will be suggested as the user types. <br>The user can disable it.'
+								} else {
+									cnotes = 'Emojis are not suggested as the user types. <br>The user can not enable this.'
+								}
+							} else if(chromeP == "LacrosAllowed") {
+								if(chromePolicies[chromeP].value == true) {
+									cnotes = 'Users can use the Lacros browser'
+								}
+							} else if(chromeP == "LoginDisplayPasswordButtonEnabled") {
+								if(chromePolicies[chromeP].value == true) {
+									cnotes = 'Users can display the password contained in the login box.'
+								}
+							} else if(chromeP == "NTPCustomBackgroundEnabled") {
+								if(chromePolicies[chromeP].value == true) {
+									cnotes = 'Users can customize the background on the New Tab page.'
+								} else {
+									cnotes = 'Users can not customize the background on the New Tab page.'
+								}
+							} else if(chromeP == "NearbyShareAllowed") {
+								cnotes = 'This setting does not appear to be documented or mentioned anywhere.'
+							} else if(chromeP == "PhoneHubAllowed") {
+								if(chromePolicies[chromeP].value == true) {
+									cnotes = 'Users can to opt in to Phone Hub, which allows them to interact with their phone on a Chrome OS device.'
+								}
+							} else if(chromeP == "PinUnlockAutosubmitEnabled") {
+								if(chromePolicies[chromeP].value == true) {
+									cnotes = 'The PIN auto-submit feature changes how PINs are entered in Chrome OS. Instead of showing the same textfield that is used for password input, this feature shows a special UI that clearly shows to the user how many digits are necessary for their PIN. As a consequence, the user\'s PIN length will be stored outside the user encrypted data. Only supports PINs that are between 6 and 12 digits long.'
+								}
+							} else if(chromeP == "PinnedLauncherApps") {
+								cnotes = 'These apps are pinned in the launcher bar, and users can\'t change/remove them.'
+								for(values in chromePolicies[chromeP].value) {
+									cnotes += '<br><a target="_blank" id="' + chromePolicies[chromeP].value[values].toString().split(';')[0] + '" href="https://chrome.google.com/webstore/detail/' + chromePolicies[chromeP].value[values].toString().split(';')[0] + '">' + chromePolicies[chromeP].value[values].toString().split(';')[0] + '</a>  '
+									urls.push(chromePolicies[chromeP].value[values].toString().split(';')[0])
+								}
+							} else if(chromeP == "SecondaryGoogleAccountSigninAllowed") {
+								if(chromePolicies[chromeP].value == true) {
+									cnotes = 'Users can switch between Google Accounts within the content area of their browser window and in Android applications, after they sign into their Google Chrome OS device.'
+								} else {
+									cnotes = 'Users can\'t switch between Google Accounts within the content area of their browser window and in Android applications. Users can still switch google accounts in incognito mode.'
+								}
+							} else if(chromeP == "ShowFullUrlsInAddressBar") {
+								if(chromePolicies[chromeP].value == true) {
+									cnotes = 'Displays of the full URL in the address bar.'
+								}
+							} else if(chromeP == "ShowHomeButton") {
+								cnotes = 'If set, users can not change it.'
+							} else if(chromeP == "SuggestedContentEnabled") {
+								if(chromePolicies[chromeP].value == true) {
+									cnotes = 'Enables \'suggestions for new content to explore\', whatever that means.'
+								}
+							} else if(chromeP == "WifiSyncAndroidAllowed") {
+								if(chromePolicies[chromeP].value == true) {
+									cnotes = 'Users can sync network configurations between Google Chrome OS devices and a connected Android phone.'
 								}
 							}
 						}
