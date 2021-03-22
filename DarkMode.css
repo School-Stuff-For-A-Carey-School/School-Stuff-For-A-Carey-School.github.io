@@ -3,7 +3,7 @@
 		color: white;
 	}
 	
-	body {
+	body, textarea {
 		background-color: #131313;
 	}
 	
