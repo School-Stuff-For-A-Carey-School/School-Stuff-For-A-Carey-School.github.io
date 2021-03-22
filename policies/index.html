@@ -31,7 +31,7 @@
 					document.getElementById('JSONDATA').innerHTML = "<br>"
 				} else if (SelectedType == "Custom") {
 					document.getElementById('JSONDATA').innerHTML = "<br>"
-					document.getElementById('JSONDATA2').innerHTML = '<TextArea style="width: 50%; height: 25%;" onchange="try { UpdateJSON2(JSON.parse(this.value), false) } catch { document.getElementById(\'JSONDATA\').innerHTML = \'<p>Invalid JSON.</p>\' }"></textarea>'
+					document.getElementById('JSONDATA2').innerHTML = '<p style="color: orangered;">WARNING: Entering text in here can be dangerous!<br>Don\'t paste in anything here that you don\'t understand.</p><TextArea style="width: 50%; height: 25%;" onchange="try { UpdateJSON2(JSON.parse(this.value), false) } catch { document.getElementById(\'JSONDATA\').innerHTML = \'<p>Invalid JSON.</p>\' }"></textarea>'
 				} else {
 					var json = '<br>'
 					document.getElementById('JSONDATA').innerHTML = '<p>Loading...</p>'
