@@ -24,36 +24,44 @@
 			}
 			
 			function UpdateJSON() {
+				document.getElementById('JSONDATA2').innerHTML = ''
 				urls = []
 				var SelectedType = document.getElementById('TypeSelect').value;
 				if(SelectedType == "None") {
 					document.getElementById('JSONDATA').innerHTML = "<br>"
+				} else if (SelectedType == "Custom") {
+					document.getElementById('JSONDATA').innerHTML = "<br>"
+					document.getElementById('JSONDATA2').innerHTML = '<TextArea style="width: 50%; height: 25%;" onchange="try { UpdateJSON2(JSON.parse(this.value), false) } catch { document.getElementById(\'JSONDATA\').innerHTML = \'<p>Invalid JSON.</p>\' }"></textarea>'
 				} else {
 					var json = '<br>'
 					document.getElementById('JSONDATA').innerHTML = '<p>Loading...</p>'
-					fetch('https://yhsyoa89jt.bitbucket.io/db/SSFACS_JSON/' + SelectedType + '/policies.json?' + new Date().getTime()).then(response => response.json()).then(data => UpdateJSON2(data)).catch(function() {
+					fetch('https://yhsyoa89jt.bitbucket.io/db/SSFACS_JSON/' + SelectedType + '/policies.json?' + new Date().getTime()).then(response => response.json()).then(data => UpdateJSON2(data, true)).catch(function() {
 						document.getElementById('JSONDATA').innerHTML = '<p>Error: <span style="color:red;">No data!</span></p>'
 					});
 				}
 			}
 			
-			function UpdateJSON2(data) {
+			function UpdateJSON2(data, safe) {
 				document.getElementById('JSONDATA').innerHTML = '<p>Parsing data...</p>'
 				var finalHTML = '<p>Error parsing data!</p>'
 				try {
 					var chromePolicies = data.chromePolicies
-					if(data.data.status) {
+					if(safe && data.data.status) {
 						var vstat = "<span style=" + '"' + "color:green;" + '"' + ">verified</span>"
 					} else {
 						var vstat = "<span style=" + '"' + "color:red;" + '"' + ">unverified</span>"
 					}
 					var TimeColour = ""
-					if (data.data.timestamp[0] != new Date().getFullYear()) {
+					if (safe && data.data.timestamp[0] != new Date().getFullYear()) {
 						TimeColour = ';color: red'
-					} else if (data.data.timestamp[1] < (new Date().getMonth() - 1)) {
+					} else if (safe && data.data.timestamp[1] < (new Date().getMonth() - 1)) {
 						TimeColour = ';color: orange'
 					}
-					finalHTML = "<p style=" + '"' + "font-family: 'Public Sans', sans-serif;" + '"' + ">Status: " + vstat + ".</p> <p style=" + '"' + "font-family: 'Public Sans', sans-serif" + TimeColour + ';"' + ">Date: " + data.data.date + "<br>Year: " + data.data.year + "</p><table class='MultiLineTable'><tr><th style=" + '"' + "font-family: 'Public Sans', sans-serif; font-weight: bold !important;" + '"' + ">Policy</th><th style=" + '"' + "font-family: 'Public Sans', sans-serif; font-weight: bold !important;" + '"' + ">Value</th><th style=" + '"' + "font-family: 'Public Sans', sans-serif; font-weight: bold !important;" + '"' + ">Additional information</th></tr>"
+					if (safe) {
+						finalHTML = "<p style=" + '"' + "font-family: 'Public Sans', sans-serif;" + '"' + ">Status: " + vstat + ".</p> <p style=" + '"' + "font-family: 'Public Sans', sans-serif" + TimeColour + ';"' + ">Date: " + data.data.date + "<br>Year: " + data.data.year + "</p><table class='MultiLineTable'><tr><th style=" + '"' + "font-family: 'Public Sans', sans-serif; font-weight: bold !important;" + '"' + ">Policy</th><th style=" + '"' + "font-family: 'Public Sans', sans-serif; font-weight: bold !important;" + '"' + ">Value</th><th style=" + '"' + "font-family: 'Public Sans', sans-serif; font-weight: bold !important;" + '"' + ">Additional information</th></tr>"
+					} else {
+						finalHTML = "<p style=" + '"' + "font-family: 'Public Sans', sans-serif;" + '"' + ">Status: " + vstat + ".</p> <p style=" + '"' + "font-family: 'Public Sans', sans-serif" + TimeColour + ';"' + "></p><table class='MultiLineTable'><tr><th style=" + '"' + "font-family: 'Public Sans', sans-serif; font-weight: bold !important;" + '"' + ">Policy</th><th style=" + '"' + "font-family: 'Public Sans', sans-serif; font-weight: bold !important;" + '"' + ">Value</th><th style=" + '"' + "font-family: 'Public Sans', sans-serif; font-weight: bold !important;" + '"' + ">Additional information</th></tr>"
+					}
 					for(chromeP in chromePolicies) {
 						finalHTML += '<tr><th><a target="_blank" href="https://cloud.google.com/docs/chrome-enterprise/policies/?policy=' + chromeP + '">' + chromeP + '</a></th><th>' + JSON.stringify(chromePolicies[chromeP].value) + '</th>'
 						var cnotes = '';
@@ -380,10 +388,12 @@
 				document.getElementById('JSONDATA').innerHTML = finalHTML
 				try {
 					for(id in urls) {
-						var currentid = urls[id]
-						document.getElementById(currentid).text = ConvertIdToName(currentid)
-						document.getElementById(currentid).insertAdjacentHTML('beforebegin', '<img id="LoadIcon0" src="https://yhsyoa89jt.bitbucket.io/db/SSFACS_JSON/ExtIcons/' + currentid + '.png" onerror="IconFail(this);" style="height: 12px; pointer-events: none;"> </img>');
-						document.getElementById(currentid).id = ""
+						try {
+							var currentid = urls[id]
+							document.getElementById(currentid).text = ConvertIdToName(currentid)
+							document.getElementById(currentid).insertAdjacentHTML('beforebegin', '<img id="LoadIcon0" src="https://yhsyoa89jt.bitbucket.io/db/SSFACS_JSON/ExtIcons/' + currentid + '.png" onerror="IconFail(this);" style="height: 12px; pointer-events: none;"> </img>');
+							document.getElementById(currentid).id = ""
+						} catch {}
 					}
 				} catch {}
 			}
@@ -416,12 +426,13 @@
 		<h1 style="text-align: center; font-family: 'Maven Pro', sans-serif; padding-top: 1%;">School Policy Viewer</h1>
 		<hr>
 		<h2 style="text-align: center; font-family: 'Maven Pro', sans-serif;">About</h2>
-		<p style="font-family: 'Public Sans', sans-serif;">Although I recommend using <a href="chrome://policy">chrome://policy</a> instead because it shows what is restricted on your browser right now, this page is occasionally updated. <br>However, unlike <a href="chrome://policy">chrome://policy</a> this page displays the policies used on the school's desktop computers, chrome on personal laptops and the school's chromebooks. <br>I am able to frequently update the chrome policy for personal laptops, however I am only able to obtain the policies for the school's desktop computers if I have access to them. I do not own a chromebook and will only be able to update their policies if I receive them from someone else.</p>
+		<p style="font-family: 'Public Sans', sans-serif;">Although I recommend using <a href="chrome://policy">chrome://policy</a> instead because it shows what is restricted on your browser right now, this page is occasionally updated. <br>However, unlike <a href="chrome://policy">chrome://policy</a> this page displays the policies used on the school's desktop computers, chrome on personal laptops and the school's chromebooks. <br>I am able to frequently update the chrome policy for personal laptops, however I am only able to obtain the policies for the school's desktop computers if I have access to them. I do not own a chromebook and will only be able to update their policies if I receive them from someone else. <br>You can also copy the JSON from <a href="chrome://policy">chrome://policy</a> and paste it in the Custom JSON box. This is experimental and may brake.</p>
 		<hr>
 		<h2 style="text-align: center; font-family: 'Maven Pro', sans-serif;">View Policies</h2>
 		<p style="font-family: 'Public Sans', sans-serif;">Type:
 			<select name="TypeSelect" id="TypeSelect" onchange="UpdateJSON()">
 				<option value="None">None</option>
+				<option value="Custom">Custom JSON</option>
 				<optgroup label="Mac (Personal)">
 					<option value="MacPLatest">Latest</option>
 					<option value="MacPLatestV">Latest (verified)</option>
@@ -433,6 +444,7 @@
 						<option value="CBookLatestV">Latest (verified)</option>
 			</select>
 		</p>
+		<div id="JSONDATA2"></div>
 		<div id="JSONDATA"> <code style='color: white;'>Loading...</code> </div>
 		<hr>
 		<h2 style="text-align: center; font-family: 'Maven Pro', sans-serif;">Submit Updated Policies</h2>
