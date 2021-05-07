@@ -374,6 +374,12 @@
 								if(chromePolicies[chromeP].value == true) {
 									cnotes = 'Users can sync network configurations between Google Chrome OS devices and a connected Android phone.'
 								}
+							} else if(chromeP == "ExtensionSettings") {
+								cnotes = "These extensions have custom settings that can't be changed: "
+								for(values in chromePolicies[chromeP].value) {
+									cnotes += '<br><a target="_blank" id="' + values + '" href="https://chrome.google.com/webstore/detail/' + values + '">' + values + '</a>: ' + JSON.stringify(chromePolicies[chromeP].value[values])
+									urls.push(values)
+								}
 							}
 						}
 						if(cnotes != '') {
@@ -448,6 +454,6 @@
 		<div id="JSONDATA"> <code style='color: white;'>Loading...</code> </div>
 		<hr>
 		<h2 style="text-align: center; font-family: 'Maven Pro', sans-serif;">Submit Updated Policies</h2>
-		<p style="font-family: 'Public Sans', sans-serif;">You can submit updated policies <a target="_blank" href="https://docs.google.com/forms/d/e/1FAIpQLSfkvUySA6UhWSeGIqFPDQ2QyN1wZiaQ72J-p3dvYTYdZCIYoA/viewform?usp=sf_link">here</a>. </body>
+		<p style="font-family: 'Public Sans', sans-serif;">You can submit updated policies <a target="_blank" href="https://docs.google.com/forms/d/e/1FAIpQLSfkvUySA6UhWSeGIqFPDQ2QyN1wZiaQ72J-p3dvYTYdZCIYoA/viewform?usp=sf_link">here</a>. <br>You can submit new extension IDs <a target="_blank" href="https://docs.google.com/forms/d/e/1FAIpQLScHKUCqW6Cp64QR8-77q8B32wSXSm797MS1z3oE9OLDB0PRqg/viewform?usp=sf_link">here</a>.</body>
 	</body>
 </html>
