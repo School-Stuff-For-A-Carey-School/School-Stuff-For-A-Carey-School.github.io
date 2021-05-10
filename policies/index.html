@@ -94,7 +94,7 @@
 								}
 							} else if(chromeP == "ExtensionInstallBlocklist" || (chromeP == "ExtensionInstallBlacklist" && data.data.old)) {
 								if(chromePolicies[chromeP].value == '*') {
-									cnotes = 'All extensions (including themes) are disabled unless they are listed in the whitelist.'
+									cnotes = 'All extensions (including themes and applications) are disabled unless they are listed in the whitelist.'
 								} else {
 									cnotes = 'These extensions are disabled.'
 									for(values in chromePolicies[chromeP].value) {
@@ -105,7 +105,7 @@
 							} else if(chromeP == "ExtensionInstallBlacklist") {
 								cnotes = 'Deprecated, functions exactly the same as ExtensionInstallBlocklist'
 							} else if(chromeP == "ExtensionInstallForcelist" || (chromeP == "ExtensionInstallWhitelist" && data.data.old)) {
-								cnotes = 'These extensions (including themes) are installed silently and cannot be uninstalled or disabled. All permissions requested by these extensions are granted.'
+								cnotes = 'These extensions (including themes and applications) are installed silently and cannot be uninstalled or disabled. All permissions requested by these extensions are granted.'
 								for(values in chromePolicies[chromeP].value) {
 									cnotes += '<br><a target="_blank" id="' + chromePolicies[chromeP].value[values].toString().split(';')[0] + '" href="https://chrome.google.com/webstore/detail/' + chromePolicies[chromeP].value[values].toString().split(';')[0] + '" style="line-height: 100%">' + chromePolicies[chromeP].value[values].toString().split(';')[0] + '</a>  '
 									urls.push(chromePolicies[chromeP].value[values].toString().split(';')[0])
@@ -113,7 +113,7 @@
 							} else if(chromeP == "ExtensionInstallWhitelist") {
 								cnotes = 'Deprecated, functions exactly the same as ExtensionInstallAllowlist'
 							} else if(chromeP == "ExtensionInstallAllowlist") {
-								cnotes = 'These extensions (including themes) are allowed to be installed and are ignored by the blacklist.'
+								cnotes = 'These extensions (including themes and applications) are allowed to be installed and are ignored by the blacklist.'
 								for(values in chromePolicies[chromeP].value) {
 									cnotes += '<br><a target="_blank" id="' + chromePolicies[chromeP].value[values].toString().split(';')[0] + '" href="https://chrome.google.com/webstore/detail/' + chromePolicies[chromeP].value[values].toString().split(';')[0] + '">' + chromePolicies[chromeP].value[values].toString().split(';')[0] + '</a>  '
 									urls.push(chromePolicies[chromeP].value[values].toString().split(';')[0])
@@ -375,7 +375,7 @@
 									cnotes = 'Users can sync network configurations between Google Chrome OS devices and a connected Android phone.'
 								}
 							} else if(chromeP == "ExtensionSettings") {
-								cnotes = "These extensions have custom settings that can't be changed: "
+								cnotes = "These extensions (including themes and applications) have custom settings that can't be changed: "
 								for(values in chromePolicies[chromeP].value) {
 									cnotes += '<br><a target="_blank" id="' + values + '" href="https://chrome.google.com/webstore/detail/' + values + '">' + values + '</a>: ' + JSON.stringify(chromePolicies[chromeP].value[values])
 									urls.push(values)
